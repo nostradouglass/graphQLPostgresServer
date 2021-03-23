@@ -60,5 +60,6 @@ typings/
 # next.js build output
 .next
 
-# dist build folder
-/dist
+
+# exclude config file
+/config/config.json
