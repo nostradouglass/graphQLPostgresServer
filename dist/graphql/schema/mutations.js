@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.mutation = void 0;
 const graphql_1 = require("graphql");
 const user_type_1 = __importDefault(require("./user_type"));
-const queries = require('../queries/userQueries');
+const video_type_1 = __importDefault(require("./video_type"));
+const userQueries = require('../queries/userQueries');
+const videoQueries = require('../queries/videoQueries');
 exports.mutation = new graphql_1.GraphQLObjectType({
     name: "Mutation",
     fields: {
@@ -19,7 +21,7 @@ exports.mutation = new graphql_1.GraphQLObjectType({
                 is_admin: { type: graphql_1.GraphQLBoolean },
             },
             resolve(parentValue, { first_name, last_name, email, is_admin }) {
-                return queries.createUser(first_name, last_name, email, is_admin);
+                return userQueries.createUser(first_name, last_name, email, is_admin);
             },
         },
         updateUser: {
@@ -32,7 +34,7 @@ exports.mutation = new graphql_1.GraphQLObjectType({
                 is_admin: { type: graphql_1.GraphQLBoolean }
             },
             resolve(parentValue, { id, first_name, last_name, email, is_admin }) {
-                return queries.updateUser(id, first_name, last_name, email, is_admin);
+                return userQueries.updateUser(id, first_name, last_name, email, is_admin);
             }
         },
         removeUser: {
@@ -41,9 +43,20 @@ exports.mutation = new graphql_1.GraphQLObjectType({
                 id: { type: graphql_1.GraphQLID },
             },
             resolve(parentValue, { id }) {
-                return queries.deleteUser(id);
+                return userQueries.deleteUser(id);
             }
-        }
+        },
+        addVideo: {
+            type: video_type_1.default,
+            args: {
+                title: { type: graphql_1.GraphQLString },
+                url: { type: graphql_1.GraphQLString },
+                users_id: { type: graphql_1.GraphQLString }
+            },
+            resolve(parentValue, { title, url, users_id }) {
+                return videoQueries.createVideo(title, url, users_id);
+            },
+        },
     },
 });
 //# sourceMappingURL=mutations.js.map

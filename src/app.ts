@@ -6,7 +6,7 @@ import cors from 'cors'
 import { graphqlHTTP } from "express-graphql";
 import schema from './graphql/schema/schema'
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+//const usersRouter = require("./routes/users");
 
 
 let app = express();
@@ -29,6 +29,6 @@ app.use('/graphql', graphqlHTTP({
 
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+//app.use("/users", usersRouter);
 
 module.exports = app;

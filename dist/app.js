@@ -11,7 +11,7 @@ const cors_1 = __importDefault(require("cors"));
 const express_graphql_1 = require("express-graphql");
 const schema_1 = __importDefault(require("./graphql/schema/schema"));
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+//const usersRouter = require("./routes/users");
 let app = express_1.default();
 app.use(morgan_1.default("dev"));
 app.use(express_1.default.json());
@@ -24,6 +24,6 @@ app.use('/graphql', express_graphql_1.graphqlHTTP({
     graphiql: !(process.env.NODE_ENV == 'production')
 }));
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+//app.use("/users", usersRouter);
 module.exports = app;
 //# sourceMappingURL=app.js.map

@@ -7,7 +7,9 @@ import graphql, {
 } from "graphql";
 
 import UserType from "./user_type";
-const queries = require('../queries/userQueries')
+import VideoType from './video_type'
+const userQueries = require('../queries/userQueries')
+const videoQueries = require('../queries/videoQueries')
 
 export const mutation: GraphQLObjectType<
   string,
@@ -24,7 +26,7 @@ export const mutation: GraphQLObjectType<
         is_admin: { type: GraphQLBoolean },
       },
       resolve(parentValue, { first_name, last_name, email, is_admin }) {
-          return queries.createUser(first_name, last_name, email, is_admin)
+          return userQueries.createUser(first_name, last_name, email, is_admin)
       },
     },
     updateUser: {
@@ -37,7 +39,7 @@ export const mutation: GraphQLObjectType<
         is_admin: { type: GraphQLBoolean }
       }, 
       resolve(parentValue, {id, first_name, last_name, email, is_admin}) {
-        return queries.updateUser(id, first_name, last_name, email, is_admin)
+        return userQueries.updateUser(id, first_name, last_name, email, is_admin)
       }
     },
     removeUser: {
@@ -46,8 +48,19 @@ export const mutation: GraphQLObjectType<
         id: {type: GraphQLID},
       }, 
       resolve(parentValue, {id} ) {
-        return queries.deleteUser(id)
+        return userQueries.deleteUser(id)
       }
-    }
+    },
+    addVideo: {
+      type: VideoType,
+      args: {
+        title: { type: GraphQLString },
+        url: { type: GraphQLString },
+        users_id: { type: GraphQLString }
+      },
+      resolve(parentValue, { title, url, users_id }) {
+          return videoQueries.createVideo(title, url, users_id)
+      },
+    },
   },
 });
